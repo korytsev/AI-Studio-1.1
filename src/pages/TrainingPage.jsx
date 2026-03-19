@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { usePageLoad, useHeaderSlot } from '@/components/layout/AppLayout'
+import { CourseStudio } from '@/components/CourseStudio'
 
 const COURSES = [
   {
@@ -316,6 +317,7 @@ export function TrainingPage() {
   const { skeleton } = usePageLoad()
   const { setTabs, setActions } = useHeaderSlot()
   const [activeTab, setActiveTab] = useState('All')
+  const [studioOpen, setStudioOpen] = useState(false)
   const [search, setSearch] = useState('')
   const [filterVals, setFilterVals] = useState({
     topic: 'All Topics', audience: 'All Audiences', format: 'All Formats', source: 'All Sources',
@@ -344,11 +346,18 @@ export function TrainingPage() {
     setActions(
       <div className="flex items-center gap-2">
         <Button size="sm" className="font-semibold tracking-wide">+ New Training Campaign</Button>
-        <Button size="sm" variant="secondary" className="font-semibold tracking-wide">+ AI Content Studio</Button>
+        <Button
+          size="sm"
+          variant="secondary"
+          className="font-semibold tracking-wide"
+          onClick={() => setStudioOpen(true)}
+        >
+          + AI Content Studio
+        </Button>
       </div>
     )
     return () => { setTabs(null); setActions(null) }
-  }, [activeTab])
+  }, [activeTab, studioOpen])
 
   if (skeleton) return <TrainingSkeleton />
 
@@ -378,6 +387,8 @@ export function TrainingPage() {
   const hasFilters = search || Object.values(filterVals).some((v, i) => v !== FILTERS[i]?.options[0]) || maxDuration !== 'Any Duration'
 
   return (
+    <>
+    {studioOpen && <CourseStudio onClose={() => setStudioOpen(false)} />}
     <div className="flex flex-col">
       <div className="flex items-center gap-3 border-b border-border px-6 py-3">
         {/* Search */}
@@ -440,5 +451,6 @@ export function TrainingPage() {
         )}
       </div>
     </div>
+    </>
   )
 }

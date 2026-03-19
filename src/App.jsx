@@ -12,8 +12,10 @@ import { DigitalRiskOverviewPage } from '@/pages/DigitalRiskOverviewPage'
 import { DRPTabPage } from '@/pages/DRPTabPage'
 import { EmailTabPage } from '@/pages/EmailTabPage'
 import { EmailOverviewPage } from '@/pages/EmailOverviewPage'
+import { CourseStudioPage } from '@/pages/CourseStudioPage'
 
 const router = createBrowserRouter([
+  { path: '/course-studio', element: <CourseStudioPage /> },
   {
     path: '/',
     element: <AppLayout />,
