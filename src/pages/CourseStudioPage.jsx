@@ -984,7 +984,7 @@ export function CourseStudioPage() {
 
           <button
             type="button"
-            onClick={() => window.history.back()}
+            onClick={() => { setStep(0); setGoal(''); setLoading(false) }}
             style={{
               width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center',
               background: 'none', border: 'none', borderRadius: 4,
